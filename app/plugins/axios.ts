@@ -14,6 +14,10 @@ export default defineNuxtPlugin(() => {
 
   Axios.interceptors.request.use(
     (config) => {
+      const currentToken = useCookie('token').value
+      if (currentToken) {
+        config.headers['Authorization'] = `Bearer ${currentToken}`
+      }
       return config
     },
     (error) => {

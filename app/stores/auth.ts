@@ -44,7 +44,6 @@ export const useAuthStore = defineStore('Auth Store', () => {
         path: '/',
       })
       cookie.value = res.data.token
-      $axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`
 
       await currentUser.setCurrentUser()
       await navigateTo('/cards')

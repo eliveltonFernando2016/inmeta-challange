@@ -5,13 +5,16 @@ export default <Partial<Config>>{
         extend: {
             colors: {
                 'green-nature': '#13EC5B',
+                'green-forest': '#4C9A66',
+                'green-whisper': '#E7F3EB',
                 'midnight-blue': '#0F172A',
                 'cloud-soft': '#F1F5F9',
                 'slate-muted': '#64748B',
                 'slate-soft': '#94A3B8',
                 'slate-deep': '#334155',
                 'slate-whisper': '#F8FAFC',
-                'slate-light': '#E2E8F0'
+                'slate-light': '#E2E8F0',
+                'neutral-linen': '#EEEFEA'
             }
         }
     },
@@ -26,6 +29,9 @@ export default <Partial<Config>>{
                 },
                 '.submit-btn': {
                     '@apply w-full h-14 bg-green-nature hover:bg-midnight-blue rounded-xl text-midnight-blue hover:text-green-nature text-base font-bold flex items-center justify-center gap-2 transition-all': {}
+                },
+                '.green-btn': {
+                    '@apply bg-green-nature hover:bg-midnight-blue rounded-lg w-24 h-10 flex items-center justify-center gap-2 font-semibold text-sm text-midnight-blue hover:text-green-nature transition-colors': {}
                 }
             })
         }

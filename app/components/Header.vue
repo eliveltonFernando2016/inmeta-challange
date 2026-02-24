@@ -5,12 +5,20 @@
         <img src="@/assets/img/logo.svg" alt="Logo">
       </NuxtLink>
       <ul class="flex items-center justify-center gap-8 *:text-sm *:font-semibold *:text-midnight-blue *:border-b-2 *:border-transparent *:pb-1">
-        <li class="hover:border-midnight-blue transition-all">Marketplace</li>
-        <li class="hover:border-midnight-blue transition-all">Auctions</li>
-        <li class="hover:border-midnight-blue transition-all">Community</li>
+        <li class="hover:border-midnight-blue transition-all">
+          <NuxtLink to="/cards">
+            Marketplace
+          </NuxtLink>
+        </li>
+        <li class="hover:border-midnight-blue transition-all">Trades</li>
+        <li class="hover:border-midnight-blue transition-all">
+          <NuxtLink to="/profile">
+            Profile
+          </NuxtLink>
+        </li>
       </ul>
       <div class="flex items-center justify-center gap-4">
-        <NuxtLink to="/login?tab=signup" class="bg-green-nature hover:bg-midnight-blue rounded-lg w-24 h-10 flex items-center justify-center gap-2 font-semibold text-sm text-midnight-blue hover:text-green-nature transition-colors">
+        <NuxtLink to="/login?tab=signup" class="green-btn">
           <Icon name="ph:user-plus" />
           Sign Up
         </NuxtLink>

@@ -1,17 +1,24 @@
 export const useCardstore = defineStore('Cards Store', () => {
   const { $axios } = useNuxtApp()
 
-  const cards = ref<Cards[] | null>(null)
+  const cards = ref<Card[] | null>(null)
   const currentCard = ref<Card | null>(null)
   const loading = ref<boolean>(false)
+  const currentPage = ref<number>(0)
 
-  const getCards = computed(() => cards.value)
-  const getCard = computed(() => card.value)
+  const listCards = computed(() => cards.value)
+  const getCard = computed(() => currentCard.value)
 
-  async function setCards() {
+  async function getCards(page: number) {
+    currentPage.value = page
     loading.value = true
 
-    await $axios.get('/cards').then((res) => {
+    await $axios.get('/cards', {
+      params: {
+        rpp: 20,
+        page: page
+      }
+    }).then((res) => {
       cards.value = res.data.list
     }).catch((err) => {
       console.log(err)
@@ -31,15 +38,16 @@ export const useCardstore = defineStore('Cards Store', () => {
     })
   }
 
-  onMounted(() => {
-    await setCards()
+  onMounted(async () => {
+    await getCards(1)
   })
 
   return {
     loading,
-    getCards,
+    listCards,
     getCard,
-    setCards,
     setCard,
+    currentPage,
+    getCards,
   }
 })
