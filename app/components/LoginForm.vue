@@ -9,6 +9,7 @@
         class="input"
         placeholder="Enter your username or email"
         autocomplete="username"
+        required
       >
     </div>
     <div class="grid grid-cols-1">
@@ -20,6 +21,7 @@
         class="input"
         placeholder="Enter your password"
         autocomplete="current-password"
+        required
       >
     </div>
     <button type="submit" class="submit-btn" :disabled="loading">

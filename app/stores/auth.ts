@@ -1,5 +1,3 @@
-import {useUserStore} from "~/stores/user";
-
 export const useAuthStore = defineStore('Auth Store', () => {
   const { $axios } = useNuxtApp()
 
@@ -24,7 +22,6 @@ export const useAuthStore = defineStore('Auth Store', () => {
     }).then((res) => {
       error.value = null
       userId.value = res.data.userId
-      currentUser.setCurrentUser()
     }).catch((err) => {
       error.value = err.response?.data?.userId || err.message
       console.error('Login error:', err.response?.data || err)
@@ -38,7 +35,7 @@ export const useAuthStore = defineStore('Auth Store', () => {
     await $axios.post('/login', {
       email: login.email,
       password: login.password,
-    }).then((res) => {
+    }).then(async (res) => {
       error.value = null
       user.value = res.data.user
 
@@ -47,6 +44,10 @@ export const useAuthStore = defineStore('Auth Store', () => {
         path: '/',
       })
       cookie.value = res.data.token
+      $axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`
+
+      await currentUser.setCurrentUser()
+      await navigateTo('/cards')
     }).catch((err) => {
       error.value = err.response?.data?.message || err.message
       console.error('Login error:', err.response?.data || err)
