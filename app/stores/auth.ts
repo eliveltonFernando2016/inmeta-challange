@@ -1,5 +1,9 @@
+import {useUserStore} from "~/stores/user";
+
 export const useAuthStore = defineStore('Auth Store', () => {
   const { $axios } = useNuxtApp()
+
+  const currentUser = useUserStore()
 
   const user = ref<User | null>(null)
   const loading = ref<boolean>(false)
@@ -20,6 +24,7 @@ export const useAuthStore = defineStore('Auth Store', () => {
     }).then((res) => {
       error.value = null
       userId.value = res.data.userId
+      currentUser.setCurrentUser()
     }).catch((err) => {
       error.value = err.response?.data?.userId || err.message
       console.error('Login error:', err.response?.data || err)
