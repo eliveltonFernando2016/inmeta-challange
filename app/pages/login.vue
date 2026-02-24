@@ -31,7 +31,16 @@
   </div>
 </template>
 <script setup lang="ts">
+const route = useRoute()
 const activeTab = ref<'login' | 'signup'>('login')
+
+onMounted(() => {
+  if (route.query.tab === 'signup') {
+    activeTab.value = 'signup'
+  } else {
+    activeTab.value = 'login'
+  }
+})
 
 const setTab = (tab: 'login' | 'signup') => {
   activeTab.value = tab

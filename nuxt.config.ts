@@ -20,9 +20,6 @@ export default defineNuxtConfig({
       },
     }
   },
-  pinia: {
-    storesDirs: ['./app/stores/**'],
-  },
   app: {
     head: {
       htmlAttrs: {

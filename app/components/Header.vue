@@ -10,11 +10,11 @@
         <li class="hover:border-midnight-blue transition-all">Community</li>
       </ul>
       <div class="flex items-center justify-center gap-4">
-        <NuxtLink to="/" class="bg-green-nature hover:bg-midnight-blue rounded-lg w-24 h-10 flex items-center justify-center gap-2 font-semibold text-sm text-midnight-blue hover:text-green-nature transition-colors">
+        <NuxtLink to="/login?tab=signup" class="bg-green-nature hover:bg-midnight-blue rounded-lg w-24 h-10 flex items-center justify-center gap-2 font-semibold text-sm text-midnight-blue hover:text-green-nature transition-colors">
           <Icon name="ph:user-plus" />
           Sign Up
         </NuxtLink>
-        <NuxtLink to="/" class="bg-cloud-soft hover:bg-midnight-blue rounded-lg w-24 h-10 flex items-center justify-center gap-2 font-semibold text-sm text-midnight-blue hover:text-cloud-soft transition-colors">
+        <NuxtLink to="/login" class="bg-cloud-soft hover:bg-midnight-blue rounded-lg w-24 h-10 flex items-center justify-center gap-2 font-semibold text-sm text-midnight-blue hover:text-cloud-soft transition-colors">
           <Icon name="ph:sign-in" />
           Login
         </NuxtLink>
