@@ -6,9 +6,13 @@
       <small class="text-green-forest min-h-[41px]">
         {{ props.card.description.length > 50 ? props.card.description.slice(0, 50) + '...' : props.card.description }}
       </small>
-      <button class="green-btn mt-3 !w-full" @click="addCard">
+      <button v-if="!offer" class="green-btn mt-3 !w-full" @click="addCard">
         <Icon name="ph:plus" />
         Add
+      </button>
+      <button v-else class="green-btn mt-3 !w-full" @click="offerCard">
+        <Icon name="ph:hand-arrow-up" />
+        Offer
       </button>
     </div>
   </div>
@@ -18,11 +22,18 @@ const props = defineProps({
   card: {
     type: Object,
     required: true
+  },
+  offer: {
+    type: Boolean,
+    required: false,
+    default: false
   }
 })
 
 const { $swal } = useNuxtApp()
 const userStore = useUserStore()
+const tradeStore = useTradetore()
+
 function addCard() {
   $swal.fire({
     width: '50em',
@@ -51,5 +62,8 @@ function addCard() {
       });
     }
   })
+}
+function offerCard() {
+
 }
 </script>

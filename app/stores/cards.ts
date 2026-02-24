@@ -1,5 +1,5 @@
 export const useCardstore = defineStore('Cards Store', () => {
-  const { $axios } = useNuxtApp()
+  const { $axios, $loading } = useNuxtApp()
 
   const cards = ref<Card[] | null>(null)
   const currentCard = ref<Card | null>(null)
@@ -10,6 +10,9 @@ export const useCardstore = defineStore('Cards Store', () => {
   const getCard = computed(() => currentCard.value)
 
   async function getCards(page: number) {
+    const loader = $loading.show({
+      color: '#13EC5B'
+    })
     currentPage.value = page
     loading.value = true
 
@@ -23,6 +26,7 @@ export const useCardstore = defineStore('Cards Store', () => {
     }).catch((err) => {
       console.log(err)
     }).finally(() => {
+      loader.hide()
       loading.value = false
     })
   }

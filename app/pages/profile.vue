@@ -1,10 +1,10 @@
 <template>
   <div class="container">
     <h1 class="text-3xl leading-9 text-midnight-blue font-extrabold">My Collection</h1>
-    <h2 class="text-base text-green-forest leading-6">Manage and track your 124 digital collectibles</h2>
+    <h2 class="text-base text-green-forest leading-6">Manage and track your {{ cards?.length || 0 }} digital collectibles</h2>
 
     <div class="grid grid-cols-4 gap-8 mt-8">
-
+      <Card v-for="(item, index) in cards" :key="index" :card="item" offer />
     </div>
   </div>
 </template>
@@ -14,5 +14,12 @@ useHead({
   meta: [
     { name: 'description', content: 'CardSwip, my cards collection' }
   ]
+})
+
+const userStore = useUserStore()
+const cards = computed(() => userStore.getUserCards)
+
+onMounted(async () => {
+  await userStore.getCards()
 })
 </script>
