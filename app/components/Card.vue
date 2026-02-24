@@ -10,7 +10,7 @@
         <Icon name="ph:plus" />
         Add
       </button>
-      <button v-else class="green-btn mt-3 !w-full" @click="offerCard">
+      <button v-else class="green-btn mt-3 !w-full disabled:opacity-50" :disabled="isAlreadyOffered" @click="offerCard">
         <Icon name="ph:hand-arrow-up" />
         Offer
       </button>
@@ -33,6 +33,10 @@ const props = defineProps({
 const { $swal } = useNuxtApp()
 const userStore = useUserStore()
 const tradeStore = useTradetore()
+
+const isAlreadyOffered = computed(() => {
+  return tradeStore.listTrade?.some(t => t.cardId === props.card.id && t.type === 'OFFERING')
+})
 
 function addCard() {
   $swal.fire({
@@ -59,11 +63,40 @@ function addCard() {
         text: "Your card has been added.",
         icon: "success",
         confirmButtonColor: "#4C9A66",
-      });
+      })
     }
   })
 }
 function offerCard() {
+  $swal.fire({
+    width: '50em',
+    title: 'Offer this card',
+    html: `<div class="grid grid-cols-2 gap-4">
+        <img src="${props.card.imageUrl}" alt="${props.card.name}" class="object-cover">
+        <div>
+            <p class="text-lg leading-6 font-bold text-midnight-blue">${props.card.name}</p>
+            <small class="text-green-forest">${props.card.description}</small>
+        </div>
+      </div>`,
+    showCancelButton: true,
+    confirmButtonColor: "#4C9A66",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, offer it!",
+    showCloseButton: true,
+  }).then((result) => {
+    if (result.isConfirmed) {
+      tradeStore.addToTrade({
+        cardId: props.card.id,
+        type: 'OFFERING'
+      })
 
+      $swal.fire({
+        title: "Card offered successfully!",
+        text: "Your card has been offered.",
+        icon: "success",
+        confirmButtonColor: "#4C9A66",
+      })
+    }
+  })
 }
 </script>

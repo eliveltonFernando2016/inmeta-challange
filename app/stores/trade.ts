@@ -6,6 +6,18 @@ export const useTradetore = defineStore('Trade Store', () => {
 
   const listTrade = computed(() => trades.value)
 
+  function addToTrade(trade: Trade) {
+    if (!trades.value) {
+      trades.value = []
+    }
+
+    const exists = trades.value.some(t => t.cardId === trade.cardId)
+    if (exists) return
+
+    trades.value.push(trade)
+    localStorage.setItem('trades', JSON.stringify(trades.value))
+  }
+
   async function setTrade(trades: Trade[]) {
     loading.value = true
 
@@ -24,6 +36,7 @@ export const useTradetore = defineStore('Trade Store', () => {
 
     await $axios.get('/trades').then(res => {
       trades.value = res.data.list
+      localStorage.setItem('trades', JSON.stringify(trades.value))
     }).catch(err => {
       console.log(err)
     }).finally(() => {
@@ -42,11 +55,33 @@ export const useTradetore = defineStore('Trade Store', () => {
     })
   }
 
+  onMounted(() => {
+    if (import.meta.client) {
+      const savedTrades = localStorage.getItem('trades')
+      if (savedTrades) {
+        const parsed = JSON.parse(savedTrades)
+        if (!trades.value) {
+          trades.value = parsed
+        } else {
+          const merged = [...trades.value]
+          parsed.forEach((saved: Trade) => {
+            const exists = merged.some(t => t.cardId === saved.cardId)
+            if (!exists) {
+              merged.push(saved)
+            }
+          })
+          trades.value = merged
+        }
+      }
+    }
+  })
+
   return {
     loading,
     listTrade,
     getTrades,
     setTrade,
     deleteTrade,
+    addToTrade,
   }
 })
