@@ -46,7 +46,7 @@ export const useAuthStore = defineStore('Auth Store', () => {
       cookie.value = res.data.token
 
       await currentUser.setCurrentUser()
-      await navigateTo('/cards')
+      await navigateTo('/')
     }).catch((err) => {
       error.value = err.response?.data?.message || err.message
       console.error('Login error:', err.response?.data || err)

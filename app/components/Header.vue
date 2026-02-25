@@ -21,7 +21,7 @@
           </NuxtLink>
         </li>
       </ul>
-      <div class="flex items-center justify-center gap-4">
+      <div v-if="!token" class="flex items-center justify-center gap-4">
         <NuxtLink to="/login?tab=signup" class="green-btn">
           <Icon name="ph:user-plus" />
           Sign Up
@@ -31,9 +31,20 @@
           Login
         </NuxtLink>
       </div>
+      <button v-else class="light-btn" @click="logout">
+        <Icon name="ph:sign-out" />
+        Logout
+      </button>
     </nav>
   </header>
 </template>
 <script setup lang="ts">
 const route = useRoute()
+const token = useCookie('token')
+const router = useRouter()
+
+function logout() {
+  token.value = null
+  router.push('/')
+}
 </script>

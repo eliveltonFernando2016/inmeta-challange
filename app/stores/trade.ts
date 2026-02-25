@@ -4,11 +4,9 @@ export const useTradetore = defineStore('Trade Store', () => {
   const loading = ref<boolean>(false)
   const trades = ref<Trade[] | null>(null)
   const tradeRequest = ref<TradeRequest[] | null>(null)
-  const cardsToTrade = ref<Card[] | null>(null)
   const currentPage = ref<number>(0)
 
   const listTrade = computed(() => trades.value)
-  const listCardsToTrade = computed(() => cardsToTrade.value)
 
   function addToTrade(trade: TradeRequest) {
     if (!tradeRequest.value) {
@@ -126,7 +124,6 @@ export const useTradetore = defineStore('Trade Store', () => {
     deleteTrade,
     addToTrade,
     addCardToTrade,
-    listCardsToTrade,
     currentPage
   }
 })

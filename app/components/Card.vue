@@ -6,17 +6,17 @@
       <small class="text-green-forest min-h-[41px]">
         {{ props.card.description.length > (props.type === 'toTrade' ? 40 : 50) ? props.card.description.slice(0, (props.type === 'toTrade' ? 40 : 50)) + '...' : props.card.description }}
       </small>
-      <button v-if="props.type === 'toTrade' && token" class="green-btn mt-3 !w-full disabled:opacity-50" :disabled="isAlreadyOffered" @click="receiveCard">
+      <button v-if="props.type === 'toTrade' && token" class="green-btn mt-3 !w-full disabled:opacity-50" @click="receiveCard">
         <Icon name="ph:hand-withdraw" />
-        {{ isAlreadyOffered ? 'Received' : 'Receive' }}
+        Receive
       </button>
       <button v-else-if="props.type === 'marketplace' && token" class="green-btn mt-3 !w-full disabled:opacity-50" :disabled="isAlreadyOwned" @click="addCard">
         <Icon name="ph:plus" />
         {{ isAlreadyOwned ? 'Added' : 'Add' }}
       </button>
-      <button v-else-if="props.type === 'collection' && token" class="green-btn mt-3 !w-full disabled:opacity-50" :disabled="isAlreadyOffered" @click="offerCard">
+      <button v-else-if="props.type === 'collection' && token" class="green-btn mt-3 !w-full disabled:opacity-50" @click="offerCard">
         <Icon name="ph:hand-deposit" />
-        {{ isAlreadyOffered ? 'Offered' : 'Offer' }}
+        Offer
       </button>
       <button v-else-if="!token" class="green-btn mt-3 !w-full" @click="viewCard">
         <Icon name="ph:eye" />
@@ -42,9 +42,6 @@ const { $swal } = useNuxtApp()
 const userStore = useUserStore()
 const tradeStore = useTradetore()
 
-const isAlreadyOffered = computed(() => {
-  return tradeStore.listTrade?.some(t => t.cardId === props.card.id && (t.type === 'OFFERING' || t.type === 'RECEIVING') )
-})
 const isAlreadyOwned = computed(() => {
   return userStore.getUserCards?.some(c => c.id === props.card.id)
 })
