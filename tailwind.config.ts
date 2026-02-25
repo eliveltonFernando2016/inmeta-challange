@@ -32,6 +32,12 @@ export default <Partial<Config>>{
                 },
                 '.green-btn': {
                     '@apply bg-green-nature hover:bg-midnight-blue rounded-lg w-24 h-10 flex items-center justify-center gap-2 font-semibold text-sm text-midnight-blue hover:text-green-nature transition-colors': {}
+                },
+                '.light-btn': {
+                    '@apply bg-cloud-soft hover:bg-midnight-blue rounded-lg w-24 h-10 flex items-center justify-center gap-2 font-semibold text-sm text-midnight-blue hover:text-cloud-soft transition-colors': {}
+                },
+                '.h1': {
+                    '@apply text-3xl leading-9 text-midnight-blue font-extrabold': {}
                 }
             })
         }

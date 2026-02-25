@@ -3,8 +3,10 @@ export const useTradetore = defineStore('Trade Store', () => {
 
   const loading = ref<boolean>(false)
   const trades = ref<Trade[] | null>(null)
+  const cardsToTrade = ref<Card[] | null>(null)
 
   const listTrade = computed(() => trades.value)
+  const listCardsToTrade = computed(() => cardsToTrade.value)
 
   function addToTrade(trade: Trade) {
     if (!trades.value) {
@@ -17,7 +19,17 @@ export const useTradetore = defineStore('Trade Store', () => {
     trades.value.push(trade)
     localStorage.setItem('trades', JSON.stringify(trades.value))
   }
+  function addCardToTrade(card: Card) {
+    if (!cardsToTrade.value) {
+      cardsToTrade.value = []
+    }
 
+    const exists = cardsToTrade.value.some(t => t.id === card.id)
+    if (exists) return
+
+    cardsToTrade.value.push(card)
+    localStorage.setItem('cardsToTrade', JSON.stringify(cardsToTrade.value))
+  }
   async function setTrade(trades: Trade[]) {
     loading.value = true
 
@@ -73,6 +85,23 @@ export const useTradetore = defineStore('Trade Store', () => {
           trades.value = merged
         }
       }
+
+      const savedCardsToTrade = localStorage.getItem('cardsToTrade')
+      if (savedCardsToTrade) {
+        const parsed = JSON.parse(savedCardsToTrade)
+        if (!cardsToTrade.value) {
+          cardsToTrade.value = parsed
+        }
+        else {
+          const merged = [...cardsToTrade.value]
+          parsed.forEach((saved: Card) => {
+            const exists = merged.some(t => t.id === saved.id)
+            if (!exists) merged.push(saved)
+          })
+
+          cardsToTrade.value = merged
+        }
+      }
     }
   })
 
@@ -83,5 +112,7 @@ export const useTradetore = defineStore('Trade Store', () => {
     setTrade,
     deleteTrade,
     addToTrade,
+    addCardToTrade,
+    listCardsToTrade,
   }
 })

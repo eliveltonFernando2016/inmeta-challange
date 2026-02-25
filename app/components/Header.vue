@@ -10,7 +10,11 @@
             Marketplace
           </NuxtLink>
         </li>
-        <li class="hover:border-midnight-blue transition-all">Trades</li>
+        <li class="hover:border-midnight-blue transition-all">
+          <NuxtLink to="/trades">
+            Trades
+          </NuxtLink>
+        </li>
         <li class="hover:border-midnight-blue transition-all">
           <NuxtLink to="/profile">
             Profile
@@ -22,7 +26,7 @@
           <Icon name="ph:user-plus" />
           Sign Up
         </NuxtLink>
-        <NuxtLink to="/login" class="bg-cloud-soft hover:bg-midnight-blue rounded-lg w-24 h-10 flex items-center justify-center gap-2 font-semibold text-sm text-midnight-blue hover:text-cloud-soft transition-colors">
+        <NuxtLink to="/login" class="light-btn">
           <Icon name="ph:sign-in" />
           Login
         </NuxtLink>

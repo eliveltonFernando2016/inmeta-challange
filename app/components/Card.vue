@@ -6,13 +6,19 @@
       <small class="text-green-forest min-h-[41px]">
         {{ props.card.description.length > 50 ? props.card.description.slice(0, 50) + '...' : props.card.description }}
       </small>
-      <button v-if="!offer" class="green-btn mt-3 !w-full" @click="addCard">
-        <Icon name="ph:plus" />
-        Add
-      </button>
+      <div v-if="!offer" class="flex items-center justify-between gap-2 mt-3">
+        <button class="light-btn !w-full disabled:opacity-50" :disabled="isAlreadyOffered" @click="receiveCard">
+          <Icon name="ph:hand-withdraw" />
+          {{ isAlreadyOffered ? 'Received' : 'Receive' }}
+        </button>
+        <button class="green-btn !w-full disabled:opacity-50" :disabled="isAlreadyOwned" @click="addCard">
+          <Icon name="ph:plus" />
+          {{ isAlreadyOwned ? 'Added' : 'Add' }}
+        </button>
+      </div>
       <button v-else class="green-btn mt-3 !w-full disabled:opacity-50" :disabled="isAlreadyOffered" @click="offerCard">
-        <Icon name="ph:hand-arrow-up" />
-        Offer
+        <Icon name="ph:hand-deposit" />
+        {{ isAlreadyOffered ? 'Offered' : 'Offer' }}
       </button>
     </div>
   </div>
@@ -35,7 +41,10 @@ const userStore = useUserStore()
 const tradeStore = useTradetore()
 
 const isAlreadyOffered = computed(() => {
-  return tradeStore.listTrade?.some(t => t.cardId === props.card.id && t.type === 'OFFERING')
+  return tradeStore.listTrade?.some(t => t.cardId === props.card.id && (t.type === 'OFFERING' || t.type === 'RECEIVING') )
+})
+const isAlreadyOwned = computed(() => {
+  return userStore.getUserCards?.some(c => c.id === props.card.id)
 })
 
 function addCard() {
@@ -89,10 +98,44 @@ function offerCard() {
         cardId: props.card.id,
         type: 'OFFERING'
       })
+      tradeStore.addCardToTrade(props.card as Card)
 
       $swal.fire({
         title: "Card offered successfully!",
         text: "Your card has been offered.",
+        icon: "success",
+        confirmButtonColor: "#4C9A66",
+      })
+    }
+  })
+}
+function receiveCard() {
+  $swal.fire({
+    width: '50em',
+    title: 'Receive this card',
+    html: `<div class="grid grid-cols-2 gap-4">
+        <img src="${props.card.imageUrl}" alt="${props.card.name}" class="object-cover">
+        <div>
+            <p class="text-lg leading-6 font-bold text-midnight-blue">${props.card.name}</p>
+            <small class="text-green-forest">${props.card.description}</small>
+        </div>
+      </div>`,
+    showCancelButton: true,
+    confirmButtonColor: "#4C9A66",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, receive it!",
+    showCloseButton: true,
+  }).then((result) => {
+    if (result.isConfirmed) {
+      tradeStore.addToTrade({
+        cardId: props.card.id,
+        type: 'RECEIVING'
+      })
+      tradeStore.addCardToTrade(props.card as Card)
+
+      $swal.fire({
+        title: "Card received successfully!",
+        text: "Your card has been received.",
         icon: "success",
         confirmButtonColor: "#4C9A66",
       })

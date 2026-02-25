@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1 class="text-3xl leading-9 text-midnight-blue font-extrabold">Cards</h1>
+    <h1 class="h1">Cards</h1>
 
     <div class="grid grid-cols-4 gap-8 mt-8">
       <Card v-for="(item, index) in cards" :key="index" :card="item" />
@@ -9,10 +9,10 @@
     <div class="flex items-center justify-center gap-4 mt-8">
       <button class="green-btn" @click="paginationHandler(currentPage-1)">
         <Icon name="ph:arrow-left" />
-        Anterior
+        Previous
       </button>
       <button class="green-btn" @click="paginationHandler(currentPage+1)">
-        Próxima
+        Next
         <Icon name="ph:arrow-right" />
       </button>
     </div>
