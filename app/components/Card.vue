@@ -6,17 +6,21 @@
       <small class="text-green-forest min-h-[41px]">
         {{ props.card.description.length > (props.type === 'toTrade' ? 40 : 50) ? props.card.description.slice(0, (props.type === 'toTrade' ? 40 : 50)) + '...' : props.card.description }}
       </small>
-      <button v-if="props.type === 'toTrade'" class="green-btn mt-3 !w-full disabled:opacity-50" :disabled="isAlreadyOffered" @click="receiveCard">
+      <button v-if="props.type === 'toTrade' && token" class="green-btn mt-3 !w-full disabled:opacity-50" :disabled="isAlreadyOffered" @click="receiveCard">
         <Icon name="ph:hand-withdraw" />
         {{ isAlreadyOffered ? 'Received' : 'Receive' }}
       </button>
-      <button v-else-if="props.type === 'marketplace'" class="green-btn mt-3 !w-full disabled:opacity-50" :disabled="isAlreadyOwned" @click="addCard">
+      <button v-else-if="props.type === 'marketplace' && token" class="green-btn mt-3 !w-full disabled:opacity-50" :disabled="isAlreadyOwned" @click="addCard">
         <Icon name="ph:plus" />
         {{ isAlreadyOwned ? 'Added' : 'Add' }}
       </button>
-      <button v-else class="green-btn mt-3 !w-full disabled:opacity-50" :disabled="isAlreadyOffered" @click="offerCard">
+      <button v-else-if="props.type === 'collection' && token" class="green-btn mt-3 !w-full disabled:opacity-50" :disabled="isAlreadyOffered" @click="offerCard">
         <Icon name="ph:hand-deposit" />
         {{ isAlreadyOffered ? 'Offered' : 'Offer' }}
+      </button>
+      <button v-else-if="!token" class="green-btn mt-3 !w-full" @click="viewCard">
+        <Icon name="ph:eye" />
+        View
       </button>
     </div>
   </div>
@@ -33,6 +37,7 @@ const props = defineProps({
   }
 })
 
+const token = useCookie('token')
 const { $swal } = useNuxtApp()
 const userStore = useUserStore()
 const tradeStore = useTradetore()
@@ -44,6 +49,20 @@ const isAlreadyOwned = computed(() => {
   return userStore.getUserCards?.some(c => c.id === props.card.id)
 })
 
+function viewCard() {
+  $swal.fire({
+    showConfirmButton: false,
+    width: '50em',
+    title: 'Abaout this card',
+    html: `<div class="grid grid-cols-2 gap-4">
+        <img src="${props.card.imageUrl}" alt="${props.card.name}" class="object-cover">
+        <div>
+            <p class="text-lg leading-6 font-bold text-midnight-blue">${props.card.name}</p>
+            <small class="text-green-forest">${props.card.description}</small>
+        </div>
+      </div>`,
+  })
+}
 function addCard() {
   $swal.fire({
     width: '50em',
