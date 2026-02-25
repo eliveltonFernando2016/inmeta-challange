@@ -4,18 +4,18 @@
       <NuxtLink to="/">
         <img src="@/assets/img/logo.svg" alt="Logo">
       </NuxtLink>
-      <ul class="flex items-center justify-center gap-8 *:text-sm *:font-semibold *:text-midnight-blue *:border-b-2 *:border-transparent *:pb-1">
-        <li class="hover:border-midnight-blue transition-all">
-          <NuxtLink to="/cards">
-            Marketplace
+      <ul class="flex items-center justify-center gap-8 *:text-sm *:font-semibold *:text-midnight-blue *:border-b-2 *:pb-1">
+        <li class="hover:border-midnight-blue transition-all" :class="route.name === 'index' ? 'border-midnight-blue' : 'border-transparent'">
+          <NuxtLink to="/">
+            Home
           </NuxtLink>
         </li>
-        <li class="hover:border-midnight-blue transition-all">
+        <li class="hover:border-midnight-blue transition-all" :class="route.name === 'trades' ? 'border-midnight-blue' : 'border-transparent'">
           <NuxtLink to="/trades">
             Trades
           </NuxtLink>
         </li>
-        <li class="hover:border-midnight-blue transition-all">
+        <li class="hover:border-midnight-blue transition-all" :class="route.name === 'profile' ? 'border-midnight-blue' : 'border-transparent'">
           <NuxtLink to="/profile">
             Profile
           </NuxtLink>
@@ -35,5 +35,5 @@
   </header>
 </template>
 <script setup lang="ts">
-
+const route = useRoute()
 </script>
