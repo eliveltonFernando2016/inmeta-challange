@@ -4,18 +4,16 @@
     <div class="bg-white p-4">
       <p class="text-lg leading-6 font-bold text-midnight-blue min-h-[56px]">{{ props.card.name }}</p>
       <small class="text-green-forest min-h-[41px]">
-        {{ props.card.description.length > 50 ? props.card.description.slice(0, 50) + '...' : props.card.description }}
+        {{ props.card.description.length > (props.type === 'toTrade' ? 40 : 50) ? props.card.description.slice(0, (props.type === 'toTrade' ? 40 : 50)) + '...' : props.card.description }}
       </small>
-      <div v-if="!offer" class="flex items-center justify-between gap-2 mt-3">
-        <button class="light-btn !w-full disabled:opacity-50" :disabled="isAlreadyOffered" @click="receiveCard">
-          <Icon name="ph:hand-withdraw" />
-          {{ isAlreadyOffered ? 'Received' : 'Receive' }}
-        </button>
-        <button class="green-btn !w-full disabled:opacity-50" :disabled="isAlreadyOwned" @click="addCard">
-          <Icon name="ph:plus" />
-          {{ isAlreadyOwned ? 'Added' : 'Add' }}
-        </button>
-      </div>
+      <button v-if="props.type === 'toTrade'" class="green-btn mt-3 !w-full disabled:opacity-50" :disabled="isAlreadyOffered" @click="receiveCard">
+        <Icon name="ph:hand-withdraw" />
+        {{ isAlreadyOffered ? 'Received' : 'Receive' }}
+      </button>
+      <button v-else-if="props.type === 'marketplace'" class="green-btn mt-3 !w-full disabled:opacity-50" :disabled="isAlreadyOwned" @click="addCard">
+        <Icon name="ph:plus" />
+        {{ isAlreadyOwned ? 'Added' : 'Add' }}
+      </button>
       <button v-else class="green-btn mt-3 !w-full disabled:opacity-50" :disabled="isAlreadyOffered" @click="offerCard">
         <Icon name="ph:hand-deposit" />
         {{ isAlreadyOffered ? 'Offered' : 'Offer' }}
@@ -29,10 +27,9 @@ const props = defineProps({
     type: Object,
     required: true
   },
-  offer: {
-    type: Boolean,
-    required: false,
-    default: false
+  type: {
+    type: String,
+    required: true
   }
 })
 

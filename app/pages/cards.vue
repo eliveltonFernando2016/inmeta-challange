@@ -3,19 +3,10 @@
     <h1 class="h1">Cards</h1>
 
     <div class="grid grid-cols-4 gap-8 mt-8">
-      <Card v-for="(item, index) in cards" :key="index" :card="item" />
+      <Card v-for="(item, index) in cards" :key="index" :card="item" type="marketplace" />
     </div>
 
-    <div class="flex items-center justify-center gap-4 mt-8">
-      <button class="green-btn" @click="paginationHandler(currentPage-1)">
-        <Icon name="ph:arrow-left" />
-        Previous
-      </button>
-      <button class="green-btn" @click="paginationHandler(currentPage+1)">
-        Next
-        <Icon name="ph:arrow-right" />
-      </button>
-    </div>
+    <Pagination :current-page="currentPage" @paginate="paginationHandler" />
   </div>
 </template>
 <script setup lang="ts">
