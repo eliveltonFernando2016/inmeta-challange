@@ -31,10 +31,16 @@
           Login
         </NuxtLink>
       </div>
-      <button v-else class="light-btn" @click="logout">
-        <Icon name="ph:sign-out" />
-        Logout
-      </button>
+      <div v-else class="flex items-center justify-center gap-4">
+        <button v-if="hasTrade" class="green-btn px-2" @click="() => router.push('/trades/checkout')">
+          <Icon name="ph:shopping-cart" />
+          Checkout
+        </button>
+        <button class="light-btn" @click="logout">
+          <Icon name="ph:sign-out" />
+          Logout
+        </button>
+      </div>
     </nav>
   </header>
 </template>
@@ -47,4 +53,9 @@ function logout() {
   token.value = null
   router.push('/')
 }
+
+const tradeStore = useTradetore()
+const hasTrade = computed(() => {
+  return !!(tradeStore.listCardsToReceive || tradeStore.listCardsToOffer);
+})
 </script>

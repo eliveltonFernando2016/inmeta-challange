@@ -7,7 +7,7 @@
           <Icon name="ph:user" size="24" class="text-green-nature" />
           <h3 class="text-lg leading-7 text-midnight-blue font-bold">{{ trade.user.name }}</h3>
         </div>
-        <div class="p-3 bg-green-nature/5 border-t border-b border-cloud-soft mt-3">
+        <div class="p-3 bg-green-nature/5 border-t border-b border-cloud-soft">
           <div class="flex gap-3 overflow-x-auto py-3">
             <Card v-for="(cards, i) in trade.tradeCards" :key="i" :card="cards.card" class="!w-80 grow-0 shrink-0 basis-auto" type="toTrade" />
           </div>

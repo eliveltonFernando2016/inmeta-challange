@@ -17,6 +17,7 @@ useHead({
   ]
 })
 
+const userStore = useUserStore()
 const cardsStore = useCardstore()
 const { currentPage } = storeToRefs(cardsStore)
 
@@ -26,4 +27,8 @@ function paginationHandler(page: number) {
   cardsStore.getCards(page)
   window.scrollTo({ top: 0, behavior: 'smooth' })
 }
+
+onMounted(async () => {
+  await userStore.getCards()
+})
 </script>
