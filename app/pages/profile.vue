@@ -3,7 +3,7 @@
     <h1 class="h1">My Collection</h1>
     <h2 class="text-base text-green-forest leading-6">Manage and track your {{ cards?.length || 0 }} digital collectibles</h2>
 
-    <div class="grid grid-cols-4 gap-8 mt-8">
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-4 lg:gap-8 mt-4 lg:mt-8">
       <Card v-for="(item, index) in cards" :key="index" :card="item" type="collection" />
     </div>
   </div>

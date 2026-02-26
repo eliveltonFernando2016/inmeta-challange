@@ -1,6 +1,6 @@
 <template>
   <Header />
-  <main class="my-14">
+  <main class="my-8 lg:my-14">
     <slot />
   </main>
   <Footer />

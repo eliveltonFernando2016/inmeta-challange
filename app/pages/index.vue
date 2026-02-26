@@ -2,7 +2,7 @@
   <div class="container">
     <h1 class="h1">Cards</h1>
 
-    <div class="grid grid-cols-4 gap-8 mt-8">
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-4 lg:gap-8 mt-4 lg:mt-8">
       <Card v-for="(item, index) in cards" :key="index" :card="item" type="marketplace" />
     </div>
 

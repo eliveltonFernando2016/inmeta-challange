@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-    <div class="w-[480px] bg-white rounded-2xl border border-cloud-soft shadow-md p-8 mx-auto">
-      <h1 class="text-midnight-blue text-3xl font-bold text-center">Welcome back, Collector</h1>
+    <div class="lg:w-[480px] bg-white rounded-2xl border border-cloud-soft shadow-md p-4 lg:p-8 mx-auto">
+      <h1 class="text-midnight-blue text-2xl lg:text-3xl font-bold text-center">Welcome back, Collector</h1>
       <h2 class="text-slate-muted text-base text-center pt-2">Continue your hunt for the rarest cards.</h2>
 
       <div class="w-full grid grid-cols-2 items-center justify-center border-b-2 border-cloud-soft my-8">

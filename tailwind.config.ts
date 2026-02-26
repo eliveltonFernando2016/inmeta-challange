@@ -37,7 +37,7 @@ export default <Partial<Config>>{
                     '@apply bg-cloud-soft hover:bg-midnight-blue rounded-lg w-24 h-10 flex items-center justify-center gap-2 font-semibold text-sm text-midnight-blue hover:text-cloud-soft transition-colors': {}
                 },
                 '.h1': {
-                    '@apply text-3xl leading-9 text-midnight-blue font-extrabold': {}
+                    '@apply text-2xl lg:text-3xl leading-9 text-midnight-blue font-extrabold': {}
                 }
             })
         }

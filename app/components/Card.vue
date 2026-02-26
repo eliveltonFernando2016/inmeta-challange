@@ -2,7 +2,7 @@
   <div class="border border-green-whisper bg-neutral-linen rounded-2xl overflow-hidden hover:shadow-lg transition-shadow">
     <img :src="props.card.imageUrl" :alt="props.card.name" class="p-4" >
     <div class="bg-white p-4">
-      <p class="text-lg leading-6 font-bold text-midnight-blue min-h-[56px]">{{ props.card.name }}</p>
+      <p class="text-lg leading-6 font-bold text-midnight-blue lg:min-h-[56px]">{{ props.card.name }}</p>
       <small class="text-green-forest min-h-[41px]">
         {{ props.card.description.length > (props.type === 'toTrade' ? 40 : 50) ? props.card.description.slice(0, (props.type === 'toTrade' ? 40 : 50)) + '...' : props.card.description }}
       </small>

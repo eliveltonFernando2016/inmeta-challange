@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <h1 class="h1">Finish trades</h1>
-    <div class="grid grid-cols-2 gap-8 mt-8">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-8 mt-4 lg:mt-8">
       <div class="bg-white border border-slate-light rounded-xl">
         <div class="flex items-center gap-2 p-3">
           <Icon name="ph:hand-deposit" size="24" class="text-green-nature" />
