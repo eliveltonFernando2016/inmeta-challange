@@ -1,5 +1,5 @@
 export const useAuthStore = defineStore('Auth Store', () => {
-  const { $axios } = useNuxtApp()
+  const { $axios, $swal } = useNuxtApp()
 
   const currentUser = useUserStore()
 
@@ -22,9 +22,21 @@ export const useAuthStore = defineStore('Auth Store', () => {
     }).then((res) => {
       error.value = null
       userId.value = res.data.userId
+      $swal.fire({
+        title: "Registered!",
+        text: "Your register has been confirmed!",
+        icon: "success",
+        confirmButtonColor: "#4C9A66",
+      })
     }).catch((err) => {
       error.value = err.response?.data?.userId || err.message
       console.error('Login error:', err.response?.data || err)
+      $swal.fire({
+        title: "Error!",
+        text: "An error occurred while registering the user.",
+        icon: "error",
+        confirmButtonColor: "#4C9A66",
+      })
     }).finally(() => {
       loading.value = false
     })
